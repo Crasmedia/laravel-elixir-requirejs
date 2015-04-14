@@ -29,7 +29,8 @@ elixir.extend('requirejs', function (src, options) {
         return rjs(options).on('error', onError)
             .pipe(gulpIf(! options.debug, uglify()))
             .pipe(gulp.dest(options.output))
-            .pipe(new notification().message('RequireJS Compiled!'));
+            .pipe(new notification().message('RequireJS Compiled!'))
+			.emit('end');
     });
 
     this.registerWatcher('requirejs', options.srcDir + '/**/*.js');
