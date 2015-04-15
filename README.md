@@ -1,11 +1,11 @@
 # laravel-elixir-requirejs
 
-Simple extension to *laravel elixir* to build javascript bundle with *requirejs*.
+Simple extension to *Laravel Elixir* to compile/trace RequireJS AMD files into one single file using a build script
 
 ## Install
 
 ```
-npm install --save-dev laravel-elixir-requirejs
+npm install --save-dev Crasmedia/laravel-elixir-requirejs
 ```
 
 ## Usage
@@ -14,14 +14,24 @@ npm install --save-dev laravel-elixir-requirejs
 
 ```javascript
 var elixir = require("laravel-elixir");
-
 require("laravel-elixir-requirejs");
 
 elixir(function(mix) {
-    mix.requirejs("bootstrap.js", rjsOptions);
+    mix.requirejs({
+    	buildfile : 'build.js'
+    });
 });
 ```
 
-## TODO
+### Example *build.js*:
+```javascript
+({
+	baseUrl: 'resources/assets/js',
+	mainConfigFile: 'resources/assets/js/config.js',
 
-[] Set defaults.
+	out: 'public/assets/js/compressed.js',
+	name: '../vendor/requirejs/require',
+	include : 'main', //Include our main js file in the require build
+	optimize: 'uglify'
+})
+```
