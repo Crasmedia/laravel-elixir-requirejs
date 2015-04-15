@@ -18,7 +18,7 @@ require("laravel-elixir-requirejs");
 
 elixir(function(mix) {
     mix.requirejs({
-    	buildfile : 'build.js'
+    	build : 'build.js' //You can also pass an array of build files
     });
 });
 ```
