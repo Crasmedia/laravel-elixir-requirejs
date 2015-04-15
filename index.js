@@ -13,12 +13,26 @@ elixir.extend('requirejs', function(options) {
 
 	options = _.extend(defaultOptions, options);
 
-	gulp.task('requirejs', shell.task([
-		'r.js -o ' + options.buildfile
-	], {
-		errorMessage : 'RequireJS failed, please check your build file',
-		quiet : !options.debug,
-		ignoreErrors : !options.debug //Don't pop error on production environment
+	if(options.build === undefined) {
+		options.build = [];
+	} else if(typeof options.build === 'string') {
+		options.build = [options.build];
+	}
+
+	var tasks = [];
+	for (index = 0, len = options.build.length; index < len; ++index)
+	{
+		var buildfile = options.build[index];
+		if(buildfile)
+		{
+			tasks.push('r.js -o ' + buildfile);
+		}
+	}
+
+	gulp.task('requirejs', shell.task(tasks, {
+		errorMessage: 'RequireJS failed! Did you make a typo in one of your build files .. ?',
+		quiet: !options.debug,
+		ignoreErrors: !options.debug //Don't pop error on production environment
 	}));
 
 	this.registerWatcher('requirejs', [options.srcDir + '/**/*.js']);
