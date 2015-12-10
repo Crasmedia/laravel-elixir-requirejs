@@ -7,6 +7,7 @@ elixir.extend('requirejs', function(options) {
 	var config = this,
 		defaultOptions = {
 			debug:  ! config.production,
+			optimizer: 'uglify',
 			srcDir: config.assetsDir + 'js',
 			output: config.jsOutput
 		};
@@ -25,7 +26,7 @@ elixir.extend('requirejs', function(options) {
 		var buildfile = options.build[index];
 		if(buildfile)
 		{
-			tasks.push('r.js -o ' + buildfile);
+			tasks.push('r.js -o optimize=' + (options.debug ? 'none' : options.optimizer) + ' ' + buildfile);
 		}
 	}
 
