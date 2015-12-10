@@ -26,7 +26,7 @@ elixir.extend('requirejs', function(options) {
 		var buildfile = options.build[index];
 		if(buildfile)
 		{
-			tasks.push('r.js -o optimize=' + (options.debug ? 'none' : options.optimizer) + ' ' + buildfile);
+			tasks.push('r.js -o ' + buildfile + ' optimize=' + (options.debug ? 'none' : options.optimizer));
 		}
 	}
 
